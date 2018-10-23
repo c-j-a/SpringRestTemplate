@@ -3,7 +3,7 @@ package com.solarwinds;
 import com.solarwinds.client.LicenseClient;
 import com.solarwinds.client.TokenClient;
 import com.solarwinds.config.AppConfig;
-import com.solarwinds.config.ClientRequestLoggingInterceptor;
+import com.solarwinds.config.DpaClientRequestInterceptor;
 import com.solarwinds.model.AuthToken;
 import com.solarwinds.model.LicenseAllocation;
 
@@ -21,7 +21,7 @@ public class Main {
 		AuthToken authToken = authClient.createAccessToken();
 
 		if (authToken != null) {
-			ClientRequestLoggingInterceptor interceptor = applicationContext.getBean(ClientRequestLoggingInterceptor.class);
+			DpaClientRequestInterceptor interceptor = applicationContext.getBean(DpaClientRequestInterceptor.class);
 			interceptor.setAuthToken(authToken);
 
 			int databaseId = 1;

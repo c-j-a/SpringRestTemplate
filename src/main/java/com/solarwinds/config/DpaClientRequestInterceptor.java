@@ -13,7 +13,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StreamUtils;
 
-public class ClientRequestLoggingInterceptor implements ClientHttpRequestInterceptor {
+public class DpaClientRequestInterceptor implements ClientHttpRequestInterceptor {
 
     private AuthToken authToken = null;
 

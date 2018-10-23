@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class TokenClientImpl implements TokenClient {
 
-    private static final String ACCESS_TOKEN_URL = Constants.BASE_URL + "/security/oauth/token?grant_type=refresh_token&refresh_token=";
+    private static final String ACCESS_TOKEN_URL = Constants.API_URL + "/security/oauth/token?grant_type=refresh_token&refresh_token=";
 
     @Autowired
     RestTemplate restTemplate;
@@ -26,7 +26,7 @@ public class TokenClientImpl implements TokenClient {
         System.out.println("===== createAccessToken =====");
 
         String url = ACCESS_TOKEN_URL + Constants.REFRESH_TOKEN;
-        System.out.println("License URL: " + url);
+        System.out.println("Access URL: " + url);
 
         // POST
         HttpHeaders headers = new HttpHeaders();

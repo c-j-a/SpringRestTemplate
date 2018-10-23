@@ -57,8 +57,8 @@ public class AppConfig {
 	}
 
 	@Bean
-	ClientRequestLoggingInterceptor requestInterceptor() {
-		return new ClientRequestLoggingInterceptor();
+	DpaClientRequestInterceptor requestInterceptor() {
+		return new DpaClientRequestInterceptor();
 	}
 
 	@Bean
