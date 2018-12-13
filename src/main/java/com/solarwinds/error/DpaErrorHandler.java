@@ -1,11 +1,14 @@
 package com.solarwinds.error;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.solarwinds.model.DpaMessage;
+import com.solarwinds.model.DpaParamater;
 import com.solarwinds.model.DpaResponse;
-import com.solarwinds.model.ResponseMessage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
@@ -44,16 +47,24 @@ public class DpaErrorHandler implements ResponseErrorHandler {
         StringBuilder sb = new StringBuilder();
 
         int statusCode = 0;
-        List<ResponseMessage> responseMessages = dpaResponse.getMessages();
-        for (int i = 0; i < responseMessages.size(); i++) {
-            ResponseMessage responseMessage = responseMessages.get(i);
+        List<DpaMessage> messages = dpaResponse.getMessages();
+        for (int i = 0; i < messages.size(); i++) {
+            DpaMessage message = messages.get(i);
             if (i == 0) {
-                statusCode = responseMessage.getCode();
+                statusCode = message.getCode();
             }
-            System.out.println(responseMessage.getSeverity() + ": " + responseMessage.getReason() + " [" + responseMessage.getCode() + "]");
-            sb.append(responseMessage.getSeverity()).append(": ").append(responseMessage.getReason())
-              .append(" [code: ").append(responseMessage.getCode()).append("]");
-            if (i < responseMessages.size() -1) {
+            System.out.println(message.getSeverity() + ": " + message.getReason() + " [code: " + message.getCode() + "]");
+            sb.append(message.getSeverity()).append(": ").append(message.getReason())
+              .append(" [code: ").append(message.getCode()).append("]");
+            Map<String, DpaParamater> params = message.getParams();
+            if (params != null) {
+                Set<Map.Entry<String, DpaParamater>> entries = params.entrySet();
+                for (Map.Entry<String, DpaParamater> entry : entries) {
+                    DpaParamater parameter = entry.getValue();
+                    System.out.println("Parameter: " + entry.getKey() + " [type: " + parameter.getType() + ", value: " + parameter.getValue() + "]");
+                }
+            }
+            if (i < (messages.size() - 1)) {
                 sb.append(System.lineSeparator());
             }
         }

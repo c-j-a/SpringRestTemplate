@@ -3,6 +3,7 @@ package com.solarwinds.config;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.solarwinds.error.DpaErrorHandler;
 
 import java.util.ArrayList;
@@ -45,6 +46,21 @@ public class AppConfig {
 		// JSON Mapper
 		MappingJackson2HttpMessageConverter jsonConverter = new MappingJackson2HttpMessageConverter();
 		ObjectMapper jsonObjectMapper = objectMapper();
+
+		// Add JavaTimeModule to out ObjectMapper which will automatically serialize Dates
+		// to String and de-serialize String to Dates.
+		// Instance variables should use the following annotation for conversions
+		//
+		//   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+		//   private OffsetDateTime time;
+		//    --> 2018-11-06T09:15:45-07:00
+		//
+		//   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+		//   private OffsetDateTime time;
+		//   --> 2018-11-06T09:15:45.678-07:00
+		JavaTimeModule module = new JavaTimeModule();
+		jsonObjectMapper.registerModule(module);
+
 		jsonConverter.setObjectMapper(jsonObjectMapper);
 		restTemplate.getMessageConverters().add(0,jsonConverter);
 

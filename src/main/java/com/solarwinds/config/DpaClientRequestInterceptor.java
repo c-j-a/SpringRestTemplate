@@ -1,7 +1,7 @@
 package com.solarwinds.config;
 
 import com.solarwinds.util.Constants;
-import com.solarwinds.model.AuthToken;
+import com.solarwinds.model.token.AuthToken;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

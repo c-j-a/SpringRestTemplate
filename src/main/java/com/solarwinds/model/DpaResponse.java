@@ -52,7 +52,7 @@ public class DpaResponse<T> {
 
     private T data;
     private String requestId;
-    private List<ResponseMessage> messages = new ArrayList<>();
+    private List<DpaMessage> messages = new ArrayList<>();
 
     public void setData(T data) {
         this.data = data;
@@ -70,17 +70,18 @@ public class DpaResponse<T> {
         this.requestId = requestId;
     }
 
-    public List<ResponseMessage> getMessages() {
+    public List<DpaMessage> getMessages() {
         return messages;
     }
 
     public void setMessages(List<Map<String, Object>> messages) {
         for (Map map : messages) {
-            ResponseMessage message = new ResponseMessage();
+            DpaMessage message = new DpaMessage();
             message.setCode((int)map.get("code"));
             message.setHelpUrl((String)map.get("helpUrl"));
             message.setReason((String)map.get("reason"));
             message.setSeverity((String)map.get("severity"));
+            message.setParams((Map<String, Map<Object, Object>>) map.get("params"));
             this.messages.add(message);
         }
     }

@@ -1,4 +1,4 @@
-package com.solarwinds.model;
+package com.solarwinds.model.licensing;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
