@@ -223,14 +223,14 @@ public class Main {
             // Ask for a database that doesn't exist
             monitorClient.getMonitorInformation(Integer.MAX_VALUE);
         } catch (Exception e) {
-            System.out.println(e);
+            /* Ignore */
         }
 
         try {
             // Start a database that doesn't exist
             monitorClient.setMonitorStatus(Integer.MAX_VALUE, MonitorCommand.createStart());
         } catch (Exception e) {
-            System.out.println(e);
+            /* Ignore */
         }
 
         // -----------------------------------------------------------
@@ -262,6 +262,8 @@ public class Main {
         RegistrationResponse response = monitorClient.registerMonitor(registerDatabase);
         System.out.println("Register: " + response);
 
+        waitFor(30000);
+
         // -----------------------------------------------------------
         // Now un-register that MySQL Database
         // -----------------------------------------------------------
@@ -274,6 +276,23 @@ public class Main {
 
         RegistrationResponse unRegisterResponse = monitorClient.unRegisterMonitor(unregisterDatabase);
         System.out.println("UnRegister: " + unRegisterResponse);
+
+        // -----------------------------------------------------------
+        // un-register with errors
+        // -----------------------------------------------------------
+        unregisterDatabase = new UnregisterDatabase();
+        unregisterDatabase.setDatabaseId(Integer.MAX_VALUE);
+        unregisterDatabase.setRemoveMonitoringUser(true);
+        unregisterDatabase.setRemoveDatabaseObjects(true);
+        unregisterDatabase.setSysAdminUser("root");
+        unregisterDatabase.setSysAdminPassword("password");
+
+        try {
+            unRegisterResponse = monitorClient.unRegisterMonitor(unregisterDatabase);
+            System.out.println("UnRegister: " + unRegisterResponse);
+        } catch (Exception e) {
+            /* Ignore */
+        }
 
     }
 

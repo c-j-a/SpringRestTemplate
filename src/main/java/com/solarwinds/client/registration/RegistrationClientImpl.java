@@ -8,9 +8,6 @@ import com.solarwinds.model.registration.UnregisterDatabase;
 import com.solarwinds.util.Constants;
 
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,12 +22,8 @@ public class RegistrationClientImpl extends AbstractRestClient implements Regist
         // http://localhost:8123/iwc/api/databases/register-monitor
         String url = Constants.API_URL + "/databases/register-monitor";
 
-        HttpEntity<RegisterDatabase> request = new HttpEntity<>(registerDatabase, getHttpHeadersJson());
-
-        ResponseEntity<DpaResponse<RegistrationResponse>> response =
-                restTemplate.exchange(url, HttpMethod.POST, request, new ParameterizedTypeReference<DpaResponse<RegistrationResponse>>() {});
-
-        DpaResponse<RegistrationResponse> dpaResponse = response.getBody();
+        ParameterizedTypeReference<DpaResponse<RegistrationResponse>> ptr = new ParameterizedTypeReference<>() {};
+        DpaResponse<RegistrationResponse> dpaResponse = httpPost(url, registerDatabase, ptr);
 
         return dpaResponse.getDataObject();
 
@@ -45,12 +38,8 @@ public class RegistrationClientImpl extends AbstractRestClient implements Regist
         // http://localhost:8123/iwc/api/databases/unregister-monitor
         String url = Constants.API_URL + "/databases/unregister-monitor";
 
-        HttpEntity<UnregisterDatabase> request = new HttpEntity<>(unregisterDatabase, getHttpHeadersJson());
-
-        ResponseEntity<DpaResponse<RegistrationResponse>> response =
-                restTemplate.exchange(url, HttpMethod.POST, request, new ParameterizedTypeReference<DpaResponse<RegistrationResponse>>() {});
-
-        DpaResponse<RegistrationResponse> dpaResponse = response.getBody();
+        ParameterizedTypeReference<DpaResponse<RegistrationResponse>> ptr = new ParameterizedTypeReference<>() {};
+        DpaResponse<RegistrationResponse> dpaResponse = httpPost(url, unregisterDatabase, ptr);
 
         return dpaResponse.getDataObject();
 
