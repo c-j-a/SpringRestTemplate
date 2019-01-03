@@ -129,7 +129,7 @@ public class Main {
         }
 
         // -----------------------------------------------------------
-        // Creates a new annotations
+        // Creates a new annotation
         // -----------------------------------------------------------
         OffsetDateTime eventTime = OffsetDateTime.now();
         eventTime = eventTime.minusDays(1);

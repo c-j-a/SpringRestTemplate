@@ -9,7 +9,7 @@ public class UnregisterDatabase {
     private Integer databaseId;
     private Boolean removeMonitoringUser;
     private Boolean removeDatabaseObjects;
-    private String sysadminUser;
+    private String sysAdminUser;
     private String sysadminPassword;
 
     public Integer getDatabaseId() {
@@ -36,12 +36,12 @@ public class UnregisterDatabase {
         this.removeDatabaseObjects = removeDatabaseObjects;
     }
 
-    public String getSysadminUser() {
-        return sysadminUser;
+    public String getSysAdminUser() {
+        return sysAdminUser;
     }
 
-    public void setSysAdminUser(String sysadminUser) {
-        this.sysadminUser = sysadminUser;
+    public void setSysAdminUser(String sysAdminUser) {
+        this.sysAdminUser = sysAdminUser;
     }
 
     public String getSysadminPassword() {
