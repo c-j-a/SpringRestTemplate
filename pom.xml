@@ -19,7 +19,7 @@
 		</plugins>
 	</build>
 	<properties>
-		<spring.framework>5.1.0.RELEASE</spring.framework>
+		<spring.framework>5.2.22.RELEASE</spring.framework>
 		<spring.web>5.1.0.RELEASE</spring.web>
 		<serializer.version>2.8.1</serializer.version>
 		<jackson.version>2.12.1</jackson.version>
